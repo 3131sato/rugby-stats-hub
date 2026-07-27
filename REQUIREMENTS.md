@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 0.5 seconds
-Output:
 # Rugby Stats Hub 要件定義書
 
 ## 目的
@@ -35,4 +32,3 @@ MVPはアカウント不要で即利用できるLocalStorage方式。同じ端�
 - CSVがExcelまたはGoogleスプレッドシートで開ける
 - 再読み込み後も同一端末でデータが残る
 - モバイル幅でも主要操作ができる
-
