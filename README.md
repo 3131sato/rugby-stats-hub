@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 0.5 seconds
-Output:
 # Rugby Stats Hub
 
 ラグビーの選手・チームスタッツを手入力し、比較・集計・CSV出力できるWebアプリです。
@@ -17,4 +14,3 @@ Output:
 
 ## Vercel
 GitHubリポジトリをVercelへインポートしてください。Viteとして自動認識されます。
-
