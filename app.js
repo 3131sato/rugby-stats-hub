@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 0.5 seconds
-Output:
 const P={基本:['プレー時間（分）','試合数'],攻撃:['トライ','得点','ボールキャリー','ゲインメーター','ラインブレイク','ディフェンス突破','オフロードパス','トライアシスト','パス'],'守備&ディシプリン':['タックル','タックルミス','タックル成功','被ターンオーバー','シンビン','レッドカード'],キック:['インプレーキック','ペナルティゴール','PKミス','ペナルティゴール成功率','コンバージョン成功','コンバージョン失敗','コンバージョン成功率','ドロップゴール']};
 const T={攻撃:['トライ','得点','ボールキャリー','ゲインメーター','平均ゲイン','ラインブレイク','ディフェンス突破','オフロードパス','パス'],'守備&ディシプリン':['タックル成功','タックル失敗','タックル成功率','被ターンオーバー','被ペナルティ','シンビン','レッドカード'],キック:['コンバージョン成功','コンバージョン失敗','コンバージョン成功率','PK得点','PKミス','ペナルティゴール成功率','ドロップゴール','インプレーキック'],'ブレイクダウン&セットプレー':['ラインアウト成功','ラインアウト失敗','ラインアウト成功率','ラック成功','ラック失敗','ラック勝率','スクラム勝ち','スクラム負け','スクラム勝率']};
 const pct=new Set(['ペナルティゴール成功率','コンバージョン成功率','タックル成功率','ラインアウト成功率','ラック勝率','スクラム勝率']);
@@ -16,4 +13,3 @@ function compare(type){let data=type==='player'?players:teams,secs=type==='playe
 function drawTable(sel,secs,type){document.querySelector('#table').innerHTML=`<table><thead><tr><th>スタッツ項目</th>${sel.map(x=>`<th><i>${x.name[0]}</i><b>${x.name}</b><small>${type==='player'?(x.pos||'—')+' · '+(x.team||'—'):'TEAM TOTAL'}</small></th>`).join('')}</tr></thead><tbody>${Object.entries(secs).map(([cat,fs])=>`<tr class="cat"><td colspan="${sel.length+1}">${cat}</td></tr>${fs.map(f=>{let vals=sel.map(x=>+x.stats[f]||0),max=Math.max(...vals);return`<tr><td>${f}</td>${vals.map(v=>`<td class="${v===max&&v>0?'best':''}">${pct.has(f)?v.toFixed(1)+'%':v.toLocaleString()}${v===max&&v>0?'<small>BEST</small>':''}</td>`).join('')}</tr>`}).join('')}`).join('')}</tbody></table>`}
 function exportCsv(){let rows=[['種別','名前','所属チーム','ポジション','カテゴリ','項目','値']];players.forEach(r=>Object.entries(P).forEach(([c,fs])=>fs.forEach(f=>rows.push(['選手',r.name,r.team,r.pos,c,f,r.stats[f]||0]))));teams.forEach(r=>Object.entries(T).forEach(([c,fs])=>fs.forEach(f=>rows.push(['チーム',r.name,'','',c,f,r.stats[f]||0]))));let q=v=>'"'+String(v??'').replaceAll('"','""')+'"',blob=new Blob(['\ufeff'+rows.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rugby-stats.csv';a.click()}
 function render(){({home,input,players:()=>compare('player'),teams:()=>compare('team')}[page])()}render();
-
